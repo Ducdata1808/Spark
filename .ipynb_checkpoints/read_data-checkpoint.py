@@ -92,6 +92,14 @@ except Exception as e:
           sys.exit(1)
 
 # create temporary table
-
+try:
+    temp_table_name = "table1"
+    df_hdfs.createOrReplaceTempView(temp_table_name)
+    result = spark.sql(f"SELECT * FROM {temp_table_name}")
+    logger.info("create table successfully")
+except Exception as e:
+    logger.error(f"an error occurs when create table: {e}")
+    sys.exit(1)
+    
 
 sc.stop()
